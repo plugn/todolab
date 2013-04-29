@@ -1,0 +1,9 @@
+{
+  "name": "todolab"
+, "version": "0.0.2"
+, "private": true
+, "dependencies": {
+    "connect": "2.7.0"
+  }
+,  "main": "server.js"
+}
