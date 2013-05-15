@@ -5,7 +5,8 @@ define([
   'views/todo',
   'text!templates/stats.html',
   'views/some',
-  ], function($, _, Backbone, TodoView, statsTemplate, SomeView){
+  'routers/router'
+  ], function($, _, Backbone, TodoView, statsTemplate, SomeView, Workspace){
   var AppView = Backbone.View.extend({
 
     // Instead of generating a new element, bind to the existing skeleton of
@@ -28,6 +29,12 @@ define([
     // passed on the constructor of this AppView. Kick things off by
     // loading any preexisting todos that might be saved in *localStorage*.
     initialize: function() {
+      if ('undefined' == typeof top.instNum) top.instNum = 0;
+      this.instNum = ++top.instNum;
+      
+      this.TodoRouter = new Workspace(this);
+      Backbone.history.start();    
+      
       this.input    = this.$("#new-todo");
 
       this.listenTo(this.collection, 'add', this.addOne);
@@ -35,6 +42,10 @@ define([
       this.listenTo(this.collection, 'all', this.render);
 
       this.collection.fetch();
+    },
+    
+    knock: function( what ) {
+      console.log(' * knock( '+what+' ); \n instNum:',this.instNum);
     },
 
     // Re-rendering the App just means refreshing the statistics -- the rest
