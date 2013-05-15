@@ -1,4 +1,4 @@
-define(['underscore', 'backbone', 'views/app'], function(_, Backbone, AppView) {
+define(['underscore', 'backbone', 'views/app'], function(_, Backbone) {
   var Workspace = Backbone.Router.extend({
     
     routes:{
